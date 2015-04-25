@@ -45,6 +45,10 @@ extract[extract[,2]=="6",2]<-"LAYING"
 #5. From the data set in step 4, creates a second, independent tidy data set with 
 #the average of each variable for each activity and each subject.
 #compute mean
+tidyData <- aggregate(extract, list(extract[,1], extract[,2]), FUN=mean)
+#cleanup
+tidyData <- tidyData[,-c(1,4)]
+colnames(tidyData)[1] <- "actLabel"
 
-
-write.table(extract, file = "tidyData.txt", row.names=F,)
+# write to file
+write.table(tidyData, file = "tidyData.txt", sep="\t", row.names=F, col.names=T)
